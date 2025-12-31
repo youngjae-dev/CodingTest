@@ -2,15 +2,14 @@ import java.util.*;
 
 public class Main {
     public static int solution(String str){
-        HashMap <String, Integer> map = new HashMap<> ();
+        HashSet <String> set = new HashSet<> ();
         int length = str.length();
         for(int i = 1; i <= length; ++i) {
-            StringBuilder tmp_sb = new StringBuilder(str);
             for(int j = 0; j < length -i + 1; ++j) {
-                map.put(str.substring(j, j + i), 0);
+                set.add(str.substring(j, j + i));
             }
         }
-        return map.size();
+        return set.size();
     }
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
