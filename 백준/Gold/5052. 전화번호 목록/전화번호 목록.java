@@ -3,14 +3,8 @@ import java.util.*;
 
 public class Main {
     public static String solution(int N, String[] numbers) {
-        HashSet<String> set = new HashSet<>();
-        for(int i = 0; i < N; ++i) {
-            StringBuilder sb = new StringBuilder();
-            for(char c : numbers[i].toCharArray()) {
-                sb.append(c);
-                if(set.contains(sb.toString())) return "NO";
-            }
-            set.add(sb.toString());
+        for(int i = 0; i < N - 1; ++i) {
+            if(numbers[i+1].startsWith(numbers[i])) return "NO";
         }
         return "YES";
     }
@@ -23,7 +17,7 @@ public class Main {
             for(int j = 0; j < N; ++j) {
                 numbers[j] = input.next();
             }
-            Arrays.sort(numbers, (s1, s2) -> s1.length()-s2.length());
+            Arrays.sort(numbers);
             System.out.println(solution(N, numbers));
         }
     }
