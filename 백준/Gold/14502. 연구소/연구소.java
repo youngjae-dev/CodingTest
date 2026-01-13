@@ -9,18 +9,18 @@ public class Main {
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
 
-    static void dfs(int count) {
+    static void dfs(int start, int count) {
         if(count == 3) {
             bfs();
             return;
         }
-        for(int i = 0; i < N; ++i) {
-            for(int j = 0; j < M; ++j) {
-                if(field[i][j] == 0) {
-                    field[i][j] = 1;
-                    dfs(count + 1);
-                    field[i][j] = 0;
-                }
+        for(int i = start; i < N * M; ++i) {
+            int row = i / M;
+            int col = i % M;
+            if(field[row][col] == 0) {
+                field[row][col] = 1;
+                dfs(i + 1, count + 1);
+                field[row][col] = 0;
             }
         }
     }
@@ -80,7 +80,7 @@ public class Main {
             }
         }
 
-        dfs(0);
+        dfs(0, 0);
         bw.write(answer + "");
 
         bw.flush();
