@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.*;
 
+// 원래는 dfs의 인자로 count만 넘겨줌으로써 함수 내부에서 2중 for문을 사용했었으나, 이 경우 1000ms를 초과해 코드가 비효율적이라고 판단하여 리팩토링하였다.
+// 리팩토링을 할 때, 1000ms라는 긴 시간이 나온 원인이 dfs라고 판단하여 그 내부 함수를 어떻게 하면 더 최적화 시킬 수 있을까 고민하다가, 인자로 count뿐만이 아닌 start로 시작점도 함께 넘겨주며
+// 중복 탐색을 방지할 수 있도록 리팩토링 하였다.
+
 public class Main {
     static int N = 0;
     static int M = 0;
@@ -85,4 +89,5 @@ public class Main {
 
         bw.flush();
     }
+
 }
