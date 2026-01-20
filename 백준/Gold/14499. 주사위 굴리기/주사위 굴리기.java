@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 
+// 문제에 대한 회고 : 동서남북 각각 방향에 대해 swtich문으로 구현하였으나 코드의 가독성도 떨어지고 길이도 길어져서 이를 모듈화를 시킴으로써 가독성을 올리고 코드의 길이도 줄일 수 있었다
+
 public class Main {
     static int[] dx = {0, 0, 0, -1, 1};
     static int[] dy = {0, 1, -1, 0, 0};
@@ -83,4 +85,5 @@ public class Main {
 
         bw.flush();
     }
+
 }
