@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static int[] dx = {0, 0, 0, -1, 1};
+    static int[] dy = {0, 1, -1, 0, 0};
+
     static class Dice {
         int[] numbers;
         int row;
@@ -10,6 +13,27 @@ public class Main {
             this.numbers = new int[6];
             this.row = row;
             this.col = col;
+        }
+    }
+
+    static void roll(int dir, Dice dice) {
+        int[] d = dice.numbers;
+        int tmp = d[0];
+        // east
+        if (dir == 1) {
+            d[0] = d[3]; d[3] = d[5]; d[5] = d[2]; d[2] = tmp;
+        }
+        // west
+        else if (dir == 2) {
+            d[0] = d[2]; d[2] = d[5]; d[5] = d[3]; d[3] = tmp;
+        }
+        // north
+        else if (dir == 3) {
+            d[0] = d[4]; d[4] = d[5]; d[5] = d[1]; d[1] = tmp;
+        }
+        // south
+        else {
+            d[0] = d[1]; d[1] = d[5]; d[5] = d[4]; d[4] = tmp;
         }
     }
 
@@ -45,56 +69,15 @@ public class Main {
 
         Dice dice = new Dice(x, y);
         for(int dir : order) {
-            switch(dir) {
-                // east
-                case 1: {
-                    if (dice.col + 1 >= M) continue;
-                    ++dice.col;
-                    int tmp = dice.numbers[3];
-                    dice.numbers[3] = dice.numbers[5];
-                    dice.numbers[5] = dice.numbers[2];
-                    dice.numbers[2] = dice.numbers[0];
-                    dice.numbers[0] = tmp;
-                    update(board, dice);
-                    break;
-                }
-                // west
-                case 2: {
-                    if (dice.col - 1 < 0) continue;
-                    --dice.col;
-                    int tmp = dice.numbers[2];
-                    dice.numbers[2] = dice.numbers[5];
-                    dice.numbers[5] = dice.numbers[3];
-                    dice.numbers[3] = dice.numbers[0];
-                    dice.numbers[0] = tmp;
-                    update(board, dice);
-                    break;
-                }
-                // north
-                case 3: {
-                    if (dice.row - 1 < 0) continue;
-                    --dice.row;
-                    int tmp = dice.numbers[4];
-                    dice.numbers[4] = dice.numbers[5];
-                    dice.numbers[5] = dice.numbers[1];
-                    dice.numbers[1] = dice.numbers[0];
-                    dice.numbers[0] = tmp;
-                    update(board, dice);
-                    break;
-                }
-                // south
-                case 4: {
-                    if (dice.row + 1 >= N) continue;
-                    int tmp = dice.numbers[1];
-                    dice.numbers[1] = dice.numbers[5];
-                    dice.numbers[5] = dice.numbers[4];
-                    dice.numbers[4] = dice.numbers[0];
-                    dice.numbers[0] = tmp;
-                    ++dice.row;
-                    update(board, dice);
-                    break;
-                }
-            }
+            int nx = dice.row + dx[dir];
+            int ny = dice.col + dy[dir];
+
+            if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+
+            dice.row = nx;
+            dice.col = ny;
+            roll(dir, dice);
+            update(board, dice);
             bw.write(dice.numbers[0] + "\n");
         }
 
