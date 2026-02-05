@@ -57,14 +57,12 @@ public class Main {
                 if(board[i][j] == 1) cheese.offer(new int[] {i, j});
             }
         }
-        
+
         board[0][0] = 2;
         connect(0, 0);
         Queue<int[]> meltCheese;
         int answer = 0;
         while(!(meltCheese = afterOneHour(cheese)).isEmpty()) {
-            int startR = meltCheese.peek()[0];
-            int startC = meltCheese.peek()[1];
             while(!meltCheese.isEmpty()) {
                 int[] tmp = meltCheese.poll();
                 int r = tmp[0];
