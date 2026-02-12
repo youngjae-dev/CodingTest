@@ -1,6 +1,9 @@
 import java.util.*;
 import java.io.*;
 
+// Shark 클래스에서 isDead를 추가해주고, 모든 상어의 이동이 끝날때마다 list를 갱신해주면서 처리했더니, 수행속도가 2000ms에서 400ms로 줄어든 것을 볼 수 있다.
+// 비효율적인 list에서의 remove 사용을 없애고 반복문과 분기처리로 바꿨더니 수행속도가 무려 5배나 차이 나는 것을 보고, 비효율적인 메서드의 사용을 자제해야겠다고 느꼈다.
+
 public class Main {
     static int[] dx = {0, -1, 1, 0, 0};
     static int[] dy = {0, 0, 0, 1, -1};
@@ -137,4 +140,5 @@ public class Main {
         }
         System.out.println(fisher.totalSize);
     }
+
 }
