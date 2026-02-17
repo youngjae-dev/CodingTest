@@ -64,15 +64,16 @@ public class Main {
 
         dijkstra(K);
 
+        StringBuilder sb = new StringBuilder();
         for(int i = 1; i <= V; ++i) {
             int x = dist[i];
             if(x == Integer.MAX_VALUE) {
-                System.out.print("INF");
+                sb.append("INF\n");
             }
             else {
-                System.out.print(x);
+                sb.append(x + "\n");
             }
-            System.out.println();
         }
+        System.out.println(sb);
     }
 }
