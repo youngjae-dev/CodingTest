@@ -14,16 +14,19 @@ class Solution {
     }
     boolean possible(int[] arr, int[][] q, int[] ans) {
         boolean flag = true;
-        HashSet<Integer> set = new HashSet<>();
-        for(int x : arr) set.add(x);
         
         int m = ans.length;
         for(int i = 0; i < m; ++i) {
             int[] list = q[i];
             int correct = ans[i];
             int cnt = 0;
-            for(int j = 0; j < 5; ++j) {
-                if(set.contains(list[j])) ++cnt;
+            for (int j = 0; j < 5; j++) {
+                for (int k = 0; k < 5; k++) {
+                    if (list[j] == arr[k]) {
+                        cnt++;
+                        break;
+                    }
+                }
             }
             if(correct != cnt) {
                 flag = false;
