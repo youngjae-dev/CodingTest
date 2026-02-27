@@ -15,50 +15,25 @@ public class Main {
 
         dist[N][0] = 0;
         dist[N][1] = 1;
-        Queue<int[]> q = new ArrayDeque<>();
-        q.offer(new int[] {N, 0});
+        Queue<Integer> q = new ArrayDeque<>();
+        q.offer(N);
 
         while(!q.isEmpty()) {
-            int len = q.size();
-            for(int i = 0; i < len; ++i) {
-                int[] tmp = q.poll();
-                int pos = tmp[0];
-                int move = tmp[1];
+            int cur = q.poll();
 
-                if(pos - 1 >= 0) {
-                    if(dist[pos-1][0] > move + 1) {
-                        dist[pos-1][0] = move + 1;
-                        dist[pos-1][1] = 1;
-                        q.offer(new int[] {pos-1, move+1});
-                    }
-                    else if(dist[pos-1][0] == move + 1) {
-                        dist[pos-1][1]++;
-                        q.offer(new int[] {pos-1, move+1});
-                    }
-                }
-                if(pos + 1 <= MAX_POS) {
-                    if(dist[pos+1][0] > move + 1) {
-                        dist[pos+1][0] = move + 1;
-                        dist[pos+1][1] = 1;
-                        q.offer(new int[] {pos+1, move+1});
-                    }
-                    else if(dist[pos+1][0] == move + 1) {
-                        dist[pos+1][1]++;
-                        q.offer(new int[] {pos+1, move+1});
-                    }
-                }
-                if(2*pos <= MAX_POS) {
-                    if(dist[2*pos][0] > move + 1) {
-                        dist[2*pos][0] = move + 1;
-                        dist[2*pos][1] = 1;
-                        q.offer(new int[] {2*pos, move+1});
-                    }
-                    else if(dist[2*pos][0] == move + 1) {
-                        dist[2*pos][1]++;
-                        q.offer(new int[] {2*pos, move+1});
-                    }
+            int[] nextPos = {cur - 1, cur + 1, 2 * cur};
+            for(int next : nextPos) {
+                if(next < 0 || next > MAX_POS) continue;
+
+                if(dist[next][0] > dist[cur][0] + 1) {
+                    dist[next][0] = dist[cur][0] + 1;
+                    dist[next][1] = dist[cur][1];
+                    q.offer(next);
                 }
 
+                else if(dist[next][0] == dist[cur][0] + 1) {
+                    dist[next][1] += dist[cur][1];
+                }
             }
         }
     }
